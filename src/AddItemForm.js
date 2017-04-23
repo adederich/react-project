@@ -15,7 +15,6 @@ class AddItemForm extends Component {
 		deorbit_dt: this.deorbit_dt.trim(),
     }
     
-    
     this.props.handleSubmit(this.submitInput.value);
     this.setState({
       id: '',
@@ -27,7 +26,6 @@ class AddItemForm extends Component {
     });
     
   }
-  
 
   render() {
 
@@ -79,7 +77,7 @@ class AddItemForm extends Component {
             ref={(input) => { this.submitInput = input; }}
           /><br /><br />
           
-          <input type="button" name="submit" value="Submit" />
+          <input type="submit" name="submit" value="Submit" />
         </form>
         <br /><br />
       </div>
