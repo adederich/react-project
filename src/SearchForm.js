@@ -20,7 +20,7 @@ class SearchForm extends Component {
             placeholder="search"
             ref={(input) => { this.searchInput = input; }}
           />
-          <input type="button" name="search" value="Search" />
+          <input type="submit" name="search" value="Search" />
         </form>
       </div>
     );
