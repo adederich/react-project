@@ -33,7 +33,7 @@ class AddItemForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     
-    fetch('http://localhost:3000/db/', {
+    fetch('http://localhost:3000/doves/', {
 	    method: 'POST',
 	    headers: {
 	    'Accept': 'application/json',
@@ -48,6 +48,15 @@ class AddItemForm extends Component {
 	      deorbit_dt: this.state.deorbit_dt,
 	    })
 	})    
+	
+	this.setState({
+      id: '',
+      active: '',
+      color: '',
+      images_collected: '',
+      last_command: '',
+      deorbit_dt: ''
+    });
   }
     
 
