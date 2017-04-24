@@ -57,6 +57,8 @@ class AddItemForm extends Component {
       last_command: '',
       deorbit_dt: ''
     });
+    //reoad results
+    window.location.reload();
   }
     
 
