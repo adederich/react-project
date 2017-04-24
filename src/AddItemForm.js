@@ -1,31 +1,55 @@
 import React, { Component } from 'react';
 import './AddItemForm.css';
 
-class AddItemForm extends Component {
 
-  handleAddItemSubmit = (e) => {
-    e.preventDefault();
+class AddItemForm extends Component {
+	
+	
+  constructor (props) {
+    super(props);
+    this.state = {
+	    active: '',
+	    color: '',
+	    images_collected: '',
+	    last_command: '',
+	    deorbit_dt: ''
+	    };
     
-    var data = {
-    	id: this.state.id.trim(),
-		active: this.active.trim(),
-		color: this.color.trim(),
-		images_collected: this.images_collected.trim(),
-		last_command: this.last_command.trim(),
-		deorbit_dt: this.deorbit_dt.trim(),
-    }
-    
-    this.props.handleSubmit(this.submitInput.value);
-    this.setState({
-      id: '',
-      active: '',
-      color: '',
-      images_collected: '',
-      last_command: '',
-      deorbit_dt: ''
-    });
-    
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
+  
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    
+    this.setState({
+      [name]: value
+    });
+  }
+  
+  handleSubmit(event) {
+    event.preventDefault();
+    
+    fetch('http://localhost:3000/db/', {
+	    method: 'POST',
+	    headers: {
+	    'Accept': 'application/json',
+	    'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({
+		  id: '',
+	      active: this.state.active,
+	      color: this.state.color,
+	      images_collected: this.state.images_collected,
+	      last_command: this.state.last_command,
+	      deorbit_dt: this.state.deorbit_dt,
+	    })
+	})    
+  }
+    
 
   render() {
 
@@ -33,48 +57,46 @@ class AddItemForm extends Component {
 
       <div className="add-item-form">
       	<h2>Put a Bird on It</h2>
-        <form onSubmit={this.handleAddItemSubmit}>
-          <input
-            type="text"
-            name="id"
-            autoFocus
-            placeholder="Id"
-            ref={(input) => { this.submitInput = input; }}
-          /><br /><br />
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             name="active"
             autoFocus
             placeholder="True or False"
-            ref={(input) => { this.submitInput = input; }}
+            value={this.state.active}
+            onChange={this.handleInputChange}
           /><br /><br />
           <input
             type="text"
             name="color"
             autoFocus
             placeholder="Color"
-            ref={(input) => { this.submitInput = input; }}
+            value={this.state.color}
+            onChange={this.handleInputChange}
           /><br /><br />
           <input
             type="text"
             name="images_collected"
             autoFocus
             placeholder="Images Collected"
-            ref={(input) => { this.submitInput = input; }}
+            value={this.state.images_collected}
+            onChange={this.handleInputChange}
           /><br /><br />
           <input
             type="text"
             name="last_command"
             autoFocus
             placeholder="Last Command"
-            ref={(input) => { this.submitInput = input; }}
+            value={this.state.last_command}
+            onChange={this.handleInputChange}
           /><br /><br />
           <input
             type="text"
             name="deorbit_dt"
             autoFocus
             placeholder="Deorbit Date"
-            ref={(input) => { this.submitInput = input; }}
+            value={this.state.deorbit_dt}
+            onChange={this.handleInputChange}
           /><br /><br />
           
           <input type="submit" name="submit" value="Submit" />
